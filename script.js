@@ -129,6 +129,35 @@ regForm.addEventListener('submit', (e) => {
         submitBtn.style.opacity = "1";
         regForm.reset();
     }, 2000);
+    const dmBtn = document.getElementById('dmBtn');
+
+dmBtn.addEventListener('click', () => {
+    // GANTI 'username_kamu' dengan username Instagram asli Anda
+    const instagramUser = "username_kamu"; 
+    
+    // Protokol aplikasi untuk mobile
+    const appUrl = `instagram://direct_share?text=Halo! Saya tertarik dengan project Nexus.&username=${instagramUser}`;
+    // URL web untuk desktop
+    const webUrl = `https://www.instagram.com/direct/t/${instagramUser}`;
+
+    // Berikan efek klik visual
+    dmBtn.style.transform = "scale(0.9)";
+    
+    setTimeout(() => {
+        dmBtn.style.transform = "translateY(-3px) scale(1)";
+        
+        // Coba buka aplikasi dulu, jika gagal dalam 0.5 detik, buka versi web
+        const start = Date.now();
+        window.location.href = appUrl;
+
+        setTimeout(() => {
+            if (Date.now() - start < 1000) {
+                window.open(webUrl, '_blank');
+            }
+        }, 500);
+        
+    }, 100);
+});
 });
 });
 
