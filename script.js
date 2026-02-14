@@ -1,47 +1,93 @@
-// --- JAVASCRIPT EFFECTS ---
+const canvas = document.getElementById('techCanvas');
+const ctx = canvas.getContext('2d');
 
-// 1. Typewriter Effect (Efek Mengetik)
-const textElement = document.getElementById('typewriter');
-const textToType = "Selamat Datang di Masa Depan // Koneksi Stabil...";
-let index = 0;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-function typeWriter() {
-    if (index < textToType.length) {
-        textElement.innerHTML += textToType.charAt(index);
-        index++;
-        setTimeout(typeWriter, 50); // Kecepatan mengetik
+let particlesArray;
+
+// Inisialisasi Partikel
+class Particle {
+    constructor(x, y, directionX, directionY, size, color) {
+        this.x = x;
+        this.y = y;
+        this.directionX = directionX;
+        this.directionY = directionY;
+        this.size = size;
+        this.color = color;
+    }
+
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+        ctx.fillStyle = '#00d2ff';
+        ctx.fill();
+    }
+
+    update() {
+        if (this.x > canvas.width || this.x < 0) {
+            this.directionX = -this.directionX;
+        }
+        if (this.y > canvas.height || this.y < 0) {
+            this.directionY = -this.directionY;
+        }
+        this.x += this.directionX;
+        this.y += this.directionY;
+        this.draw();
     }
 }
 
-// Jalankan saat halaman dimuat
-window.onload = typeWriter;
+function init() {
+    particlesArray = [];
+    let numberOfParticles = (canvas.height * canvas.width) / 9000;
+    for (let i = 0; i < numberOfParticles; i++) {
+        let size = (Math.random() * 2) + 1;
+        let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+        let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+        let directionX = (Math.random() * 2) - 1;
+        let directionY = (Math.random() * 2) - 1;
+        let color = '#00d2ff';
 
-// 2. Parallax Effect pada Kartu (Tilt 3D ringan)
-const cards = document.querySelectorAll('.card');
+        particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+    }
+}
 
-cards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+function animate() {
+    requestAnimationFrame(animate);
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
 
-        // Mengubah border warna saat mouse bergerak di atas kartu
-        card.style.borderColor = `rgba(${x}, ${y}, 255, 0.5)`;
-    });
+    for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update();
+    }
+    connect();
+}
 
-    card.addEventListener('mouseleave', () => {
-        card.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-    });
+// Garis penghubung antar partikel (efek teknologi/grid)
+function connect() {
+    let opacityValue = 1;
+    for (let a = 0; a < particlesArray.length; a++) {
+        for (let b = a; b < particlesArray.length; b++) {
+            let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x))
+            + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+            
+            if (distance < (canvas.width/7) * (canvas.height/7)) {
+                opacityValue = 1 - (distance/20000);
+                ctx.strokeStyle = 'rgba(0, 210, 255,' + opacityValue + ')';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                ctx.stroke();
+            }
+        }
+    }
+}
+
+window.addEventListener('resize', function(){
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+    init();
 });
 
-// 3. Random Glitch Trigger pada Judul
-const title = document.querySelector('.glitch');
-setInterval(() => {
-    // Kadang-kadang ubah warna shadow secara acak
-    const randomColor = Math.random() > 0.5 ? 'var(--neon-cyan)' : 'var(--neon-pink)';
-    title.style.textShadow = `2px 2px 0px ${randomColor}`;
-    
-    setTimeout(() => {
-        title.style.textShadow = 'none';
-    }, 100);
-}, 3000);
+init();
+animate();
