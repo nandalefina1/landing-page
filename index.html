@@ -3,50 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project: NEON SOUL | Anime Tech Landing</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
-    
+    <title>Nexus Anime | Modern Tech Landing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="bg-grid"></div>
-    
-    <div class="deco-circle c1"></div>
-    <div class="deco-circle c2"></div>
-    <div class="jp-deco">未来技術</div> <nav>
-        <div class="logo">NEON<span style="color:white">SOUL</span>_</div>
-        <div class="nav-links">
-            <button>Login_System</button>
-        </div>
-    </nav>
+    <canvas id="techCanvas"></canvas>
 
-    <header class="hero">
-        <h1 class="glitch" data-text="SYSTEM: ONLINE">SYSTEM: ONLINE</h1>
-        <p id="typewriter"></p>
-        <button class="cta-btn">INITIALIZE LINK //</button>
+    <header>
+        <nav class="navbar">
+            <div class="logo">NEXUS<span>_XP</span></div>
+            <ul class="nav-links">
+                <li><a href="#">Genre</a></li>
+                <li><a href="#">Trending</a></li>
+                <li><a href="#">Character</a></li>
+                <li><a href="#">Update</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="btn-search">🔍 Search</button>
+                <button class="btn-primary">JOIN NOW</button>
+            </div>
+        </nav>
     </header>
 
-    <section class="features">
-        <div class="card">
-            <h3>01. CYBER SECURITY</h3>
-            <p>Enkripsi tingkat militer dengan firewall berbasis AI yang beradaptasi secara real-time.</p>
-        </div>
-        <div class="card">
-            <h3>02. NEURAL LINK</h3>
-            <p>Konektivitas langsung antara antarmuka otak dan mesin. Kecepatan transfer data tanpa batas.</p>
-        </div>
-        <div class="card">
-            <h3>03. MECHA DESIGN</h3>
-            <p>Estetika visual yang terinspirasi dari robotika canggih dan struktur kerangka eksoskeleton.</p>
-        </div>
-    </section>
+    <main class="hero-section">
+        <div class="content-wrapper">
+            <div class="anime-info">
+                <span class="season-tag">SEASON 1 | 2026</span>
+                <h1 class="glitch" data-text="SOLO LEVELING">SOLO LEVELING</h1>
+                <div class="rating">
+                    ⭐⭐⭐⭐⭐ <span>(4.9)</span>
+                </div>
+                <div class="tags">
+                    <span>ACTION</span>
+                    <span>ADVENTURE</span>
+                    <span>FANTASY</span>
+                </div>
+                <p class="description">
+                    Di dunia di mana pemburu harus melawan monster mematikan, Sung Jin-Woo, pemburu terlemah di dunia, menemukan sistem rahasia yang memungkinkan dia untuk naik level tanpa batas.
+                </p>
+                <div class="cta-group">
+                    <button class="btn-watch">▶ WATCH NOW</button>
+                    <button class="btn-outline">✚ SAVE FOR LATER</button>
+                </div>
+            </div>
 
-    <footer>
-        <p>PROJECT NEON SOUL © 2024 | DESIGNED FOR THE FUTURE</p>
-        <p style="color: var(--neon-cyan); margin-top:10px;">システム終了</p>
-    </footer>
+            <div class="image-container">
+                <div class="glow-effect"></div>
+                <img src="https://images6.alphacoders.com/134/1341018.png" alt="Solo Leveling Character" class="main-img">
+            </div>
+        </div>
+
+        <div class="slider-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
