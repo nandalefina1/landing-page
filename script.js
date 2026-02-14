@@ -87,6 +87,49 @@ window.addEventListener('resize', function(){
     canvas.width = innerWidth;
     canvas.height = innerHeight;
     init();
+    // Ambil elemen-elemen DOM
+const joinBtn = document.getElementById('joinBtn');
+const modal = document.getElementById('joinModal');
+const closeBtn = document.querySelector('.close-btn');
+const regForm = document.getElementById('registrationForm');
+
+// Fungsi membuka modal
+joinBtn.addEventListener('click', () => {
+    modal.classList.add('active');
+    // Efek guncangan kecil pada tombol saat diklik
+    joinBtn.style.transform = "scale(0.95)";
+    setTimeout(() => joinBtn.style.transform = "scale(1)", 100);
+});
+
+// Fungsi menutup modal
+closeBtn.addEventListener('click', () => {
+    modal.classList.remove('active');
+});
+
+// Tutup modal jika user klik di luar area form
+window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        modal.classList.remove('active');
+    }
+});
+
+// Handle submit form dengan simulasi loading
+regForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const submitBtn = regForm.querySelector('.btn-submit');
+    
+    // Animasi Loading Tech
+    submitBtn.innerText = "UPLOADING_DATA...";
+    submitBtn.style.opacity = "0.7";
+    
+    setTimeout(() => {
+        alert("ACCESS GRANTED. Welcome to Nexus.");
+        modal.classList.remove('active');
+        submitBtn.innerText = "CONFIRM_LINK";
+        submitBtn.style.opacity = "1";
+        regForm.reset();
+    }, 2000);
+});
 });
 
 init();
